@@ -16,12 +16,13 @@ public class tb11_imovelModel
 
     [Column("tb010_tipologiaModel")]
     public int tb10_tipologiaModel {get; set;}
-
-    [Column("DEcricao")]
+    [Column("tb18_proprietarioModel")]
+    public int tb18_proprietarioModel {get; set;}
+    [Column("Descricao")]
     public string Descricao {get; set;} = string.Empty;
 
     [Column("Preco")]
-    public string Preco {get; set;} = string.Empty;
+    public decimal Preco {get; set;}
 
     [Column("Estado")]
     public bool Estado {get; set;}

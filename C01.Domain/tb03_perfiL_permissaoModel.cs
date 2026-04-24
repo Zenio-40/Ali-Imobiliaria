@@ -11,6 +11,9 @@ public class tb03_perfiL_permissaoModel
     [Column("Idtb02_perfilModel")]
     public int Idtb02_perfilModel {get; set;}
 
+    [Column("Idtb01_permissaoModel")]
+    public int Idtb01_permissaoModel {get; set;}
+
     [Column("Estado")]
     public bool Estado {get; set;}
 

@@ -8,6 +8,9 @@ public class tb17_enderecoModel
     [Column("Id")]
     public int Id {get; set;}
 
+    [Column("tb11_imovelModel")]
+    public int tb11_imovelModel {get; set;}
+
     [Column("TipoImovel")]
     public int tb09_tipo_imovelModel {get; set;}
 

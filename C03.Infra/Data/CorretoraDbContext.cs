@@ -53,12 +53,239 @@ public class CorretoraDbContext(DbContextOptions<CorretoraDbContext> options) : 
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<tb03_perfiL_permissaoModel>(entity =>
+        // tb01_permissaoModel
+        modelBuilder.Entity<tb01_permissaoModel>(entity =>
         {
-            entity.HasKey(perfilP => perfilP.Perfil).WithOne(perfil => perfil.Permissao);
+            entity.HasKey(e => e.id);
         });
 
-        
+        // tb02_perfilModel
+        modelBuilder.Entity<tb02_perfilModel>(entity =>
+        {
+            entity.HasKey(e => e.id);
+            entity.HasOne(e => e.Cliente)
+                .WithMany()
+                .HasForeignKey("Idtb02_perfilModel") // assuming FK in cliente
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb03_perfiL_permissaoModel
+        modelBuilder.Entity<tb03_perfiL_permissaoModel>(entity =>
+        {
+            entity.HasKey(e => e.id);
+            entity.HasOne(e => e.Perfil)
+                .WithMany(p => p.PerfilPermissao)
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Permissao)
+                .WithMany(p => p.PerfilPermissao)
+                .HasForeignKey(e => e.Idtb01_permissaoModel)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // tb04_funcionarioModel
+        modelBuilder.Entity<tb04_funcionarioModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Perfil)
+                .WithMany()
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb05_credencial_acessoModel
+        modelBuilder.Entity<tb05_credencial_acessoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Funcionario)
+                .WithMany(f => f.Credencial)
+                .HasForeignKey(e => e.Idtb04_funcionarioModel)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // tb06_clienteModel
+        modelBuilder.Entity<tb06_clienteModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne<tb02_perfilModel>()
+                .WithMany()
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb07_telefoneModel
+        modelBuilder.Entity<tb07_telefoneModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Funcionario)
+                .WithMany(f => f.Telefone)
+                .HasForeignKey(e => e.tb04_funcionarioModel)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.Cliente)
+                .WithMany(c => c.Telefone)
+                .HasForeignKey(e => e.tb06_clienteModel)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // tb08_emailModel
+        modelBuilder.Entity<tb08_emailModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Funcionario)
+                .WithMany(f => f.Email)
+                .HasForeignKey(e => e.tb04_funcionarioModel)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+            entity.HasOne(e => e.Cliente)
+                .WithMany(c => c.Email)
+                .HasForeignKey(e => e.tb06_clienteModel)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.SetNull);
+        });
+
+        // tb09_tipo_imovelModel
+        modelBuilder.Entity<tb09_tipo_imovelModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+
+        // tb10_tipologiaModel
+        modelBuilder.Entity<tb10_tipologiaModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+
+        // tb11_imovelModel
+        modelBuilder.Entity<tb11_imovelModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Funcionario)
+                .WithMany(f => f.Imovel)
+                .HasForeignKey(e => e.tb04_funcionarioModel)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.TipoImovel)
+                .WithMany(t => t.Imovel)
+                .HasForeignKey(e => e.tb09_tipo_imovelModel)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.Tipologia)
+                .WithMany()
+                .HasForeignKey(e => e.tb10_tipologiaModel)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.ProprietarioModel)
+                .WithMany(p => p.Imoveis)
+                .HasForeignKey(e => e.tb18_proprietarioModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+         // tb12_fotoModel
+        modelBuilder.Entity<tb12_fotoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Imovel)
+                .WithMany(i => i.Foto)
+                .HasForeignKey("tb11_imovelModel") // assuming FK added
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne<tb09_tipo_imovelModel>()
+                .WithMany()
+                .HasForeignKey(e => e.tb09_tipo_imovel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb13_videoModel
+        modelBuilder.Entity<tb13_videoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Imovel)
+                .WithMany(i => i.Video)
+                .HasForeignKey("tb11_imovelModel") // assuming FK
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // tb14_provinciaModel
+        modelBuilder.Entity<tb14_provinciaModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+
+        // tb15_municipioModel
+        modelBuilder.Entity<tb15_municipioModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Provincia)
+                .WithMany(p => p.Municipio)
+                .HasForeignKey(e => e.tb14_provinciaModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb16_bairroModel
+        modelBuilder.Entity<tb16_bairroModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Municipio)
+                .WithMany(m => m.Bairro)
+                .HasForeignKey(e => e.tb15_municipioModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb17_enderecoModel
+        modelBuilder.Entity<tb17_enderecoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Bairro)
+                .WithMany(b => b.Endereco)
+                .HasForeignKey(e => e.tb16_bairroModel)
+                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(e => e.Imovel)
+                .WithMany(i => i.Endereco)
+                .HasForeignKey(e => e.tb11_imovelModel)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        // tb18_proprietarioModel
+        modelBuilder.Entity<tb18_proprietarioModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+        });
+
+        // tb19_estado_solicitacaoModel
+        modelBuilder.Entity<tb19_estado_solicitacaoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id );
+        });
+
+        // tb20_solicitacaoModel
+        modelBuilder.Entity<tb20_solicitacaoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Cliente)
+                .WithMany(c => c.Solicitacoes)
+                .HasForeignKey(e => e.tb06_clienteModel)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Imovel)
+                .WithMany(i => i.Solicitacao)
+                .HasForeignKey(e => e.tb11_imovelModel)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.EstadoSolicitacao)
+                .WithMany()
+                .HasForeignKey(e => e.tb19_estado_solicitacaoModel)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // tb21_favoritoModel
+        modelBuilder.Entity<tb21_favoritoModel>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.HasOne(e => e.Cliente)
+                .WithMany(c => c.Favoritos)
+                .HasForeignKey(e => e.tb06_clienteModel)
+                .OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(e => e.Imovel)
+                .WithMany(i => i.Favorito)
+                .HasForeignKey(e => e.tb11_imovelModel)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 
 

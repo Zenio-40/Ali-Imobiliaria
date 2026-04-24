@@ -6,7 +6,7 @@ namespace Corretora.C01.Domain;
 public class tb19_estado_solicitacaoModel
 {
     [Column("id")]
-    public int id {get; set;}
+    public int Id {get; set;}
 
     [Column("Nome")]
     public string Nome {get; set;} = string.Empty;

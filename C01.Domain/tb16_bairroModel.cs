@@ -16,5 +16,5 @@ public class tb16_bairroModel
 
     public tb15_municipioModel Municipio {get; set;} = null!;
 
-    public ICollection<tb17_enderecoModel> Bairro {get; set;} = [];
+    public ICollection<tb17_enderecoModel> Endereco {get; set;} = [];
 }
