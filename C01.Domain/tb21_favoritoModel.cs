@@ -13,4 +13,8 @@ public class tb21_favoritoModel
 
     [Column("Imovel")]
     public int tb11_imovelModel {get; set;}
+
+    public tb06_clienteModel Cliente {get; set;} = null!;
+
+    public tb11_imovelModel Imovel {get; set;} = null!;
 }

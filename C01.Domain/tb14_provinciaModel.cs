@@ -10,4 +10,6 @@ public class tb14_provinciaModel
 
     [Column("Nome")]
     public string Nome {get; set;} = string.Empty;
+
+    public ICollection<tb15_municipioModel> Municipio {get; set;} = [];
 }

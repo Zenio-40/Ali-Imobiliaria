@@ -13,4 +13,7 @@ public class tb19_estado_solicitacaoModel
 
     [Column("descricao")]
     public string Descricao {get; set;} = string.Empty;
+
+    public ICollection<tb20_solicitacaoModel> Solicitacao {get; set;} = [];
+
 }

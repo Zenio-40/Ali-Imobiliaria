@@ -14,5 +14,10 @@ public class tb03_perfiL_permissaoModel
     [Column("Estado")]
     public bool Estado {get; set;}
 
+    public tb01_permissaoModel Permissao {get; set;} = null!;
+
+    public tb02_perfilModel Perfil {get; set;} = null!;
+    
+
 }
 

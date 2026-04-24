@@ -10,4 +10,6 @@ public class tb10_tipologiaModel
 
     [Column("Descricao")]
     public string Descricao {get; set;} = string.Empty;
+
+    public ICollection<tb11_imovelModel> Imovel {get; set;} = [];
 }

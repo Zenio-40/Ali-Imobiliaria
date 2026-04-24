@@ -17,4 +17,6 @@ public class tb05_credencial_acessoModel
     [Column("Senha_salt")]
     public string Senha_salt {get; set;} = string.Empty;
 
+    public tb04_funcionarioModel Funcionario {get; set;} = null!;
+
 }

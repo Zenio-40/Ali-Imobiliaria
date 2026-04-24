@@ -10,4 +10,8 @@ public class tb01_permissaoModel
 
     [Column("descricao")]
     public string Descricao {get; set;} = string.Empty;
+
+    public ICollection<tb03_perfiL_permissaoModel> PerfilPermissao {get; set;} = [];
+
+    public ICollection<tb04_funcionarioModel> Funcionario {get; set;} = [];
 }

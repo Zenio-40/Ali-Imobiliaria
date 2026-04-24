@@ -12,4 +12,6 @@ public class tb02_perfilModel
     public string Descricao  {get; set;} = string.Empty;
 
     public tb06_clienteModel Cliente {get; set;} = null!;
+
+    public ICollection<tb03_perfiL_permissaoModel> PerfilPermissao {get; set;} = [];
 }

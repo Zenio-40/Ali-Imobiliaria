@@ -13,5 +13,7 @@ public class tb12_fotoModel
 
     [Column("Foto")]
     public string Foto {get; set;} = string.Empty;
+
+    public tb11_imovelModel Imovel {get; set;} = null!;
 }
 

@@ -25,4 +25,17 @@ public class tb11_imovelModel
 
     [Column("Estado")]
     public bool Estado {get; set;}
+    
+    public ICollection<tb20_solicitacaoModel> Solicitacao {get; set;} = [];
+    public ICollection<tb12_fotoModel> Foto {get; set;} = [];
+    public ICollection<tb13_videoModel> Video {get; set;} = [];
+    public ICollection<tb17_enderecoModel> Endereco {get; set;} = [];
+    public ICollection<tb18_proprietarioModel> Proprietario {get; set;} = [];
+
+    public ICollection<tb21_favoritoModel> Favorito {get; set;} = [];
+    public tb04_funcionarioModel Funcionario {get; set;} = null!;
+    public tb09_tipo_imovelModel TipoImovel {get; set;} = null!;
+    public tb10_tipologiaModel Tipologia {get; set;} = null!;
+
+    public tb18_proprietarioModel ProprietarioModel {get; set;} = null!;
 }

@@ -17,4 +17,7 @@ public class tb08_emailModel
     [Column("Email")]
     public string email {get; set;} = string.Empty;
 
+    public tb04_funcionarioModel Funcionario {get; set;} = null!;
+    public tb06_clienteModel Cliente {get; set;} = null!;
+
 }

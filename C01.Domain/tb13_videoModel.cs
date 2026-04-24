@@ -13,4 +13,6 @@ public class tb13_videoModel
 
     [Column("Video")]
     public string Video {get; set;} = string.Empty;
+
+    public tb11_imovelModel Imovel {get; set;} = null!;
 }

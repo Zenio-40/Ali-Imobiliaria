@@ -13,4 +13,8 @@ public class tb16_bairroModel
 
     [Column("Nome")]
     public string Nome {get; set;} = string.Empty;
+
+    public tb15_municipioModel Municipio {get; set;} = null!;
+
+    public ICollection<tb17_enderecoModel> Bairro {get; set;} = [];
 }

@@ -15,5 +15,7 @@ public class tb18_proprietarioModel
     public string Nome {get; set;} = string.Empty;
 
     public string Telefone {get; set;} = string.Empty;
+
+    public ICollection<tb11_imovelModel> Imoveis {get; set;} = [];
 }
 

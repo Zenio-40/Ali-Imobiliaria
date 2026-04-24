@@ -18,6 +18,14 @@ public class tb06_clienteModel
     public bool Estado {get; set;}
 
     public ICollection<tb02_perfilModel> Perfis {get; set;} = [];
+
+    public ICollection<tb07_telefoneModel> Telefone {get; set;} = [];
+
+    public ICollection<tb08_emailModel> Email {get; set;} = [];
+
+    public ICollection<tb21_favoritoModel> Favoritos {get; set;} = [];
+
+    public ICollection<tb20_solicitacaoModel> Solicitacoes {get; set;} = [];
 }
 
 

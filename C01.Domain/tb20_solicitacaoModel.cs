@@ -19,4 +19,10 @@ public class tb20_solicitacaoModel
 
     [Column("Data")]
     public DateTime Data { get; set; }
+
+    public tb06_clienteModel Cliente {get; set;} = null!;
+
+    public tb11_imovelModel Imovel {get; set;} = null!;
+
+    public tb19_estado_solicitacaoModel EstadoSolicitacao {get; set;} = null!;
 }

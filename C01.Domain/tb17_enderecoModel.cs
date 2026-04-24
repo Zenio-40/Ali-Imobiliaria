@@ -16,4 +16,7 @@ public class tb17_enderecoModel
 
     [Column("Nome")]
     public string Nome {get; set;} = string.Empty;
+
+    public tb11_imovelModel Imovel {get; set;} = null!;
+    public tb16_bairroModel Bairro {get; set;} = null!;
 }

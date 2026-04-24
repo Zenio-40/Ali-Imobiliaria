@@ -16,5 +16,14 @@ public class tb04_funcionarioModel
 
     [Column("Estado")]
     public bool Estado {get; set;}
+
+    public ICollection<tb07_telefoneModel> Telefone {get; set;} = [];
+
+    public ICollection<tb05_credencial_acessoModel> Credencial {get; set;} = [];
+
+    public ICollection<tb11_imovelModel> Imovel {get; set;} = [];
+
+    public ICollection<tb08_emailModel> Email {get; set;} = [];
+    public tb02_perfilModel Perfil {get; set;} = null!;
 }
 
