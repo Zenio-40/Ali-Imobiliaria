@@ -14,12 +14,9 @@ public class CadastrarFuncionario(
         var model = new tb04_funcionarioModel
         {
             Nome = dto.FuncionarioNome,
-            Idtb02_perfilModel = dto.FuncionarioIdPerfil,
-            Telefone = 
-            {
-                new tb07_telefoneModel { Numero = dto.FuncionarioTelefone }
-            },
-            Estado = true
+            Telefone = dto.FuncionarioTelefone,
+            Perfil = dto.FuncionarioIdPerfil
+
         };
 
         var (dado, mensagem, codigo) = await cadastrar.CadastrarAsync(model);

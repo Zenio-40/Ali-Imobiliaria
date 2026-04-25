@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Corretora.C01.Domain;
-[Table("tb02_perfil")]
+[Table("Perfil")]
 public class tb02_perfilModel
 {
     [Column("id")]
