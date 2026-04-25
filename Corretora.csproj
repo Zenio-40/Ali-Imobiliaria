@@ -8,14 +8,39 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.7" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="C01.Domain\Interfaces\" />
     <Folder Include="C02.Aplication\" />
-    <Folder Include="C03.Infra\" />
+    <Folder Include="C02.Aplication\CasosUso\" />
+    <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\" />
+    <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\Command\" />
+    <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\DTOs\" />
+    <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\Queries\" />
     <Folder Include="C03.Infra\Data\" />
+    <Folder Include="C03.Infra\Repositorios\E01_permissao\" />
+    <Folder Include="C03.Infra\Repositorios\E03_perfil_permissao\" />
+    <Folder Include="C03.Infra\Repositorios\E04_funcionario\" />
+    <Folder Include="C03.Infra\Repositorios\E05_credencial_acesso\" />
+    <Folder Include="C03.Infra\Repositorios\E06_cliente\" />
+    <Folder Include="C03.Infra\Repositorios\E07_telefone\" />
+    <Folder Include="C03.Infra\Repositorios\E08_email\" />
+    <Folder Include="C03.Infra\Repositorios\E09_tipo_imovel\" />
+    <Folder Include="C03.Infra\Repositorios\E10_tipologia\" />
+    <Folder Include="C03.Infra\Repositorios\E11_imovel\" />
+    <Folder Include="C03.Infra\Repositorios\E12_foto\" />
+    <Folder Include="C03.Infra\Repositorios\E13_video\" />
+    <Folder Include="C03.Infra\Repositorios\E14_provincia\" />
+    <Folder Include="C03.Infra\Repositorios\E15_municipio\" />
+    <Folder Include="C03.Infra\Repositorios\E16_bairro\" />
+    <Folder Include="C03.Infra\Repositorios\E17_endereco\" />
+    <Folder Include="C03.Infra\Repositorios\E18_proprietario\" />
+    <Folder Include="C03.Infra\Repositorios\E19_estado_solicitacao\" />
+    <Folder Include="C03.Infra\Repositorios\E20_solicitacao\" />
+    <Folder Include="C03.Infra\Repositorios\E21_favorito\" />
     <Folder Include="C04.Controllers\" />
   </ItemGroup>
 
