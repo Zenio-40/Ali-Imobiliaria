@@ -9,10 +9,12 @@ namespace Corretora.Controllers;
 public class AdminController : ControllerBase
 {
     private readonly CadastrarFuncionario _cadastrarFuncionario;
+    private readonly LoginCommand _loginCommand;
 
-    public AdminController(CadastrarFuncionario cadastrarFuncionario)
+    public AdminController(CadastrarFuncionario cadastrarFuncionario, LoginCommand loginCommand)
     {
         _cadastrarFuncionario = cadastrarFuncionario;
+        _loginCommand = loginCommand;
     }
 
     [HttpPost]
@@ -24,7 +26,21 @@ public class AdminController : ControllerBase
        var (dados, mensagem, codigo) = await _cadastrarFuncionario.Executar(dto);
         return StatusCode(codigo, new
         {
-            dados, 
+            dados,
+            mensagem,
+            codigo
+        });
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginDTO dto)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+
+        var (token, mensagem, codigo) = await _loginCommand.Executar(dto);
+        return StatusCode(codigo, new
+        {
+            token,
             mensagem,
             codigo
         });

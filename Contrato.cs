@@ -61,6 +61,7 @@ public static class Contratos
         services.AddScoped<IPesquisarTelefoneRepositorio<tb04_funcionarioModel>, PesquisarPorTelefoneRepositorio>();
         services.AddScoped<IPesquisarTodosRepositorio<tb04_funcionarioModel>, PesquisarTodosFuncionarioRepositorio>();
         services.AddScoped<Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb04_funcionarioModel>, RemoverFuncionarioRepositorio>();
+        services.AddScoped<ILoginRepositorio, LoginRepositorio>();
 
         // Credencial de acesso
         services.AddScoped<ICadastrarRepositorio<tb05_credencial_acessoModel>, CadastrarCredencialRepositorio>();
@@ -204,6 +205,7 @@ public static class Contratos
         services.AddScoped<IPasswordHash, PasswordHashService>();
         services.AddScoped<IPasswordVerify, PasswordVerifyService>();
         services.AddScoped<ISmsService, SmsService>();
+        services.AddScoped<IJwtService, JwtService>();
 
         return services;
     }
