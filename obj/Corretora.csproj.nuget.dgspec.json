@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {}
   },
   "projects": {
@@ -12,9 +13,22 @@
         "projectPath": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
         "packagesPath": "C:\\Users\\Zênio\\.nuget\\packages\\",
         "outputPath": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\obj\\",
+=======
+    "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+        "projectName": "Corretora",
+        "projectPath": "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+        "packagesPath": "C:\\Users\\xavie\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\obj\\",
+>>>>>>> ba376b05b7e0c2f1ee80fadf1e12344af153b6b8
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Zênio\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\xavie\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -50,7 +64,7 @@
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[10.0.7, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",

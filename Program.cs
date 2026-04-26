@@ -1,3 +1,4 @@
+using Corretora;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,7 @@ builder.Services.AddOpenApi();
 
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;
 builder.Services.AddDbContext<CorretoraDbContext>(options => options.UseNpgsql(conexao));
+builder.Services.AddContratos();
 
 builder.Services.AddDbContext<CorretoraDbContext>();
 

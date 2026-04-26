@@ -25,5 +25,6 @@ public class tb04_funcionarioModel
 
     public ICollection<tb08_emailModel> Email {get; set;} = [];
     public tb02_perfilModel Perfil {get; set;} = null!;
+
 }
 
