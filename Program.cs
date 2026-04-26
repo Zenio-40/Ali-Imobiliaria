@@ -12,6 +12,10 @@ builder.Services.AddOpenApi();
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;
 builder.Services.AddDbContext<CorretoraDbContext>(options => options.UseNpgsql(conexao));
 
+builder.Services.AddDbContext<CorretoraDbContext>();
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

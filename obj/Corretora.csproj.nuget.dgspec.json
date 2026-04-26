@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {}
+    "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {
+    "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+        "projectUniqueName": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
         "projectName": "Corretora",
-        "projectPath": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+        "projectPath": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
         "packagesPath": "C:\\Users\\Zênio\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\obj\\",
+        "outputPath": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Zênio\\AppData\\Roaming\\NuGet\\NuGet.Config"
