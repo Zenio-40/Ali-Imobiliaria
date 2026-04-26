@@ -1,27 +1,34 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb04_Funcionario;
+namespace Corretora.C03.Infra.Repositorios.E04_funcionario;
 
-public class PesquisarTodosFuncionarioRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorios<tb04_funcionarioModel>
+public class PesquisarTodosFuncionarioRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorio<tb04_funcionarioModel>
 {
-    public async Task<(IEnumerable<tb04_funcionarioModel> dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
+    public async Task<(IEnumerable<tb04_funcionarioModel>? dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
     {
         try
         {
-            var entities = await context.Tabela04Funcinario
+            var dados = await context.Tabela04Funcinario
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();
-            return (entities, "Funcionarios listados com sucesso", 200);
+
+            return dados.Count > 0 ?
+                (dados, "Funcionários encontrados com sucesso!", 200) :
+                (Array.Empty<tb04_funcionarioModel>(), "Nenhum funcionário encontrado.", 404);
         }
         catch (Exception ex)
         {
-            return (new List<tb04_funcionarioModel>(), ex.ToString(), 500);
+            return (null, ex.ToString(), 500);
         }
     }
 }
+
+

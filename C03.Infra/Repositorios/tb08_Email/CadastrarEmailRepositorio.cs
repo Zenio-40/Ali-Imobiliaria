@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb08_Email;
+namespace Corretora.C03.Infra.Repositorios.E08_email;
 
 public class CadastrarEmailRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb08_emailModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarEmailRepositorio(CorretoraDbContext context) : ICadastrarR
         try
         {
             await context.Tabela08Email.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Email cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o email", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Email cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar email.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarEmailRepositorio(CorretoraDbContext context) : ICadastrarR
         }
     }
 }
+
+
 

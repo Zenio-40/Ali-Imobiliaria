@@ -1,24 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb21_Favorito;
+namespace Corretora.C03.Infra.Repositorios.E21_favorito;
 
-public class RemoverFavoritoRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb21_favoritoModel>
+public class RemoverFavoritoRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb21_favoritoModel>
 {
-    public async Task<(tb21_favoritoModel? dado, string mensagem, int codigo)> RemoverAsync(tb21_favoritoModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela21Favorito.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Favorito removido com sucesso", 200) :
-            (null, "Não foi possível remover o favorito", 500);
+            var entidade = await context.Tabela21Favorito.FindAsync(id);
+            if (entidade is null)
+                return (false, "Favorito não encontrado.", 404);
+
+            context.Tabela21Favorito.Remove(entidade);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Favorito removido com sucesso!", 200) :
+                (false, "Erro ao remover favorito.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
+

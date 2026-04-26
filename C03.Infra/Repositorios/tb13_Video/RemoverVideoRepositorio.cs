@@ -1,25 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb13_Video;
+namespace Corretora.C03.Infra.Repositorios.E13_video;
 
-public class RemoverVideoRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb13_videoModel>
+public class RemoverVideoRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb13_videoModel>
 {
-    public async Task<(tb13_videoModel? dado, string mensagem, int codigo)> RemoverAsync(tb13_videoModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela13Video.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Vídeo removido com sucesso", 200) :
-            (null, "Não foi possível remover o vídeo", 500);
+            var video = await context.Tabela13Video.FindAsync(id);
+            if (video is null)
+                return (false, "Vídeo não encontrado.", 404);
+
+            context.Tabela13Video.Remove(video);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Vídeo removido com sucesso!", 200) :
+                (false, "Erro ao remover vídeo.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
 

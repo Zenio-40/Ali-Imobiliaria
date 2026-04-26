@@ -1,28 +1,35 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb07_Telefone;
+namespace Corretora.C03.Infra.Repositorios.E07_telefone;
 
-public class PesquisarTodosTelefoneRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorios<tb07_telefoneModel>
+public class PesquisarTodosTelefoneRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorio<tb07_telefoneModel>
 {
-    public async Task<(IEnumerable<tb07_telefoneModel> dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
+    public async Task<(IEnumerable<tb07_telefoneModel>? dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
     {
         try
         {
-            var entities = await context.Tabela07Telefone
+            var dados = await context.Tabela07Telefone
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();
-            return (entities, "Telefones listados com sucesso", 200);
+
+            return dados.Count > 0 ?
+                (dados, "Telefones encontrados com sucesso!", 200) :
+                (Array.Empty<tb07_telefoneModel>(), "Nenhum telefone encontrado.", 404);
         }
         catch (Exception ex)
         {
-            return (new List<tb07_telefoneModel>(), ex.ToString(), 500);
+            return (null, ex.ToString(), 500);
         }
     }
 }
+
+
 

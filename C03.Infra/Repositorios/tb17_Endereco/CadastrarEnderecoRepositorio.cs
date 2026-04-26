@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb17_Endereco;
+namespace Corretora.C03.Infra.Repositorios.E17_endereco;
 
 public class CadastrarEnderecoRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb17_enderecoModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarEnderecoRepositorio(CorretoraDbContext context) : ICadastr
         try
         {
             await context.Tabela17Enderco.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Endereço cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o endereço", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Endereço cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar endereço.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarEnderecoRepositorio(CorretoraDbContext context) : ICadastr
         }
     }
 }
+
+
 

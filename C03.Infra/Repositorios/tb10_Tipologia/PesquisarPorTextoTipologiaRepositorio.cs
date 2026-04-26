@@ -1,28 +1,36 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb10_Tipologia;
+namespace Corretora.C03.Infra.Repositorios.E10_tipologia;
 
-public class PesquisarPorTextoTipologiaRepositorio(CorretoraDbContext context) : IPesquisarPorTextoRepositorio<tb10_tipologiaModel>
+public class PesquisarPorTextoTipologiaRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IPesquisarPorTextoRepositorio<tb10_tipologiaModel>
 {
-    public async Task<(IEnumerable<tb10_tipologiaModel> dados, string mensagem, int codigo)> PesquisarPorTextoAsync(string texto, int pagina = 1, int quantidade = 20)
+    public async Task<(IEnumerable<tb10_tipologiaModel>? dados, string mensagem, int codigo)> PesquisarPorTextoAsync(string texto, int pagina = 1, int quantidade = 20)
     {
         try
         {
-            var entities = await context.Tabela10Tipologia.Where(t => t.Descricao.Contains(texto))
+            var dados = await context.Tabela10Tipologia
+                .Where(t => t.Descricao.Contains(texto))
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();
-            return (entities, "Tipologias encontradas", 200);
+
+            return dados.Count > 0 ?
+                (dados, "Tipologias encontradas com sucesso!", 200) :
+                (Array.Empty<tb10_tipologiaModel>(), "Nenhuma tipologia encontrada.", 404);
         }
         catch (Exception ex)
         {
-            return (new List<tb10_tipologiaModel>(), ex.ToString(), 500);
+            return (null, ex.ToString(), 500);
         }
     }
 }
+
+
 

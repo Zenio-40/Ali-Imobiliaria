@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb07_Telefone;
+namespace Corretora.C03.Infra.Repositorios.E07_telefone;
 
 public class CadastrarTelefoneRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb07_telefoneModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarTelefoneRepositorio(CorretoraDbContext context) : ICadastr
         try
         {
             await context.Tabela07Telefone.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Telefone cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o telefone", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Telefone cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar telefone.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarTelefoneRepositorio(CorretoraDbContext context) : ICadastr
         }
     }
 }
+
+
 

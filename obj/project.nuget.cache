@@ -1,23 +1,27 @@
 {
   "version": 2,
-<<<<<<< HEAD
-  "dgSpecHash": "Bx1+exUBRBg=",
+  "dgSpecHash": "p3Vq/FMO9Ag=",
   "success": true,
-  "projectFilePath": "c:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
-=======
-  "dgSpecHash": "kw0QZsTp+7I=",
-  "success": true,
-  "projectFilePath": "C:\\Users\\xavie\\OneDrive\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
->>>>>>> ba376b05b7e0c2f1ee80fadf1e12344af153b6b8
+  "projectFilePath": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.5\\microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.7\\microsoft.entityframeworkcore.10.0.7.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.7\\microsoft.entityframeworkcore.abstractions.10.0.7.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.7\\microsoft.entityframeworkcore.analyzers.10.0.7.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.0\\microsoft.entityframeworkcore.relational.10.0.0.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\npgsql\\10.0.0\\npgsql.10.0.0.nupkg.sha512",
-    "C:\\Users\\xavie\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.0\\npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512"
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.5\\microsoft.aspnetcore.openapi.10.0.5.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.entityframeworkcore\\10.0.0\\microsoft.entityframeworkcore.10.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\10.0.0\\microsoft.entityframeworkcore.abstractions.10.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\10.0.0\\microsoft.entityframeworkcore.analyzers.10.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\10.0.0\\microsoft.entityframeworkcore.relational.10.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\npgsql\\10.0.0\\npgsql.10.0.0.nupkg.sha512",
+    "C:\\Users\\Zênio\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\10.0.0\\npgsql.entityframeworkcore.postgresql.10.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "message": "Problem reading the cache file C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0.",
+      "projectPath": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+      "warningLevel": 1,
+      "filePath": "C:\\Users\\Zênio\\Documents\\GitHub\\Ali-Imobiliaria\\Corretora.csproj",
+      "targetGraphs": []
+    }
+  ]
 }

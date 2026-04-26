@@ -1,28 +1,35 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb13_Video;
+namespace Corretora.C03.Infra.Repositorios.E13_video;
 
-public class PesquisarTodosVideoRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorios<tb13_videoModel>
+public class PesquisarTodosVideoRepositorio(CorretoraDbContext context) : IPesquisarTodosRepositorio<tb13_videoModel>
 {
-    public async Task<(IEnumerable<tb13_videoModel> dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
+    public async Task<(IEnumerable<tb13_videoModel>? dados, string mensagem, int codigo)> PesquisarTodosAsync(int pagina = 1, int quantidade = 20)
     {
         try
         {
-            var entities = await context.Tabela13Video
+            var dados = await context.Tabela13Video
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();
-            return (entities, "Vídeos listados com sucesso", 200);
+
+            return dados.Count > 0 ?
+                (dados, "Vídeos encontrados com sucesso!", 200) :
+                (Array.Empty<tb13_videoModel>(), "Nenhum vídeo encontrado.", 404);
         }
         catch (Exception ex)
         {
-            return (new List<tb13_videoModel>(), ex.ToString(), 500);
+            return (null, ex.ToString(), 500);
         }
     }
 }
+
+
 

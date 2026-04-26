@@ -1,25 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb09_tipo_imovel;
+namespace Corretora.C03.Infra.Repositorios.E09_tipo_imovel;
 
-public class RemoverTipoImovelRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb09_tipo_imovelModel>
+public class RemoverTipoImovelRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb09_tipo_imovelModel>
 {
-    public async Task<(tb09_tipo_imovelModel? dado, string mensagem, int codigo)> RemoverAsync(tb09_tipo_imovelModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela09TipolaImovel.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Tipo de imóvel removido com sucesso", 200) :
-            (null, "Não foi possível remover o tipo de imóvel", 500);
+            var tipoImovel = await context.Tabela09TipolaImovel.FindAsync(id);
+            if (tipoImovel is null)
+                return (false, "Tipo de imóvel não encontrado.", 404);
+
+            context.Tabela09TipolaImovel.Remove(tipoImovel);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Tipo de imóvel removido com sucesso!", 200) :
+                (false, "Erro ao remover tipo de imóvel.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
 

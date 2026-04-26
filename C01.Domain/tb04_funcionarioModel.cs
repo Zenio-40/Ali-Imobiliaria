@@ -8,8 +8,11 @@ public class tb04_funcionarioModel
     [Column("Id")]
     public int Id {get; set;}
 
-    [Column("Idtb02_perfilModel")]
+    [Column("IdPerfil")]
     public int Idtb02_perfilModel {get; set;}
+
+    [Column("Numero")]
+    public string Numero {get; set;} = string.Empty;
 
     [Column("Nome")]
     public string Nome {get; set;} = string.Empty;

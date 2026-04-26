@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb15_municipio;
+namespace Corretora.C03.Infra.Repositorios.E15_municipio;
 
 public class CadastrarMunicipioRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb15_municipioModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarMunicipioRepositorio(CorretoraDbContext context) : ICadast
         try
         {
             await context.Tabela15Municipio.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Município cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o município", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Município cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar município.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarMunicipioRepositorio(CorretoraDbContext context) : ICadast
         }
     }
 }
+
+
 

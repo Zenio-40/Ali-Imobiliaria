@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb04_Funcionario;
+namespace Corretora.C03.Infra.Repositorios.E04_funcionario;
 
 public class CadastrarFuncionarioRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb04_funcionarioModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarFuncionarioRepositorio(CorretoraDbContext context) : ICada
         try
         {
             await context.Tabela04Funcinario.AddAsync(model);
-            return await context.SaveChangesAsync() >0 ?(model, "Funcionario Cadastrado com sucesso",201) : 
-            (null, "Não foi possível cadastrar o funcionário", 500);
+            return await context.SaveChangesAsync() > 0 ?
+            (model, "Funcionário cadastrado com sucesso!", 201) : 
+            (null, "Erro ao cadastrar funcionário.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,3 +23,7 @@ public class CadastrarFuncionarioRepositorio(CorretoraDbContext context) : ICada
         }
     }
 }
+
+
+
+

@@ -1,20 +1,21 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb20_Solicitacao;
+namespace Corretora.C03.Infra.Repositorios.E20_solicitacao;
 
-public class PesquisarPorIdSolicitacaoRepositorio(CorretoraDbContext context) : IPesquisarPorIdRepositorio<tb20_solicitacaoModel>
+public class PesquisarPorIdSolicitacaoRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IPesquisarPorIdRepositorio<tb20_solicitacaoModel>
 {
     public async Task<(tb20_solicitacaoModel? dado, string mensagem, int codigo)> PesquisarPorIdAsync(int id, int pagina = 1, int quantidade = 20)
     {
         try
         {
-            var entity = await context.Tabela20Solicitacao.FindAsync(id);
-            return entity != null ? (entity, "Solicitação encontrada", 200) :
-            (null, "Solicitação não encontrada", 404);
+            var entidade = await context.Tabela20Solicitacao.FindAsync(id);
+            return entidade is not null ?
+                (entidade, "Solicitação encontrada com sucesso!", 200) :
+                (null, "Solicitação não encontrada.", 404);
         }
         catch (Exception ex)
         {
@@ -22,3 +23,6 @@ public class PesquisarPorIdSolicitacaoRepositorio(CorretoraDbContext context) : 
         }
     }
 }
+
+
+

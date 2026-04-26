@@ -12,11 +12,11 @@ builder.Services.AddOpenApi();
 
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;
 builder.Services.AddDbContext<CorretoraDbContext>(options => options.UseNpgsql(conexao));
-builder.Services.AddContratos();
+
 
 builder.Services.AddDbContext<CorretoraDbContext>();
 
-
+builder.Services.AddContratos();
 
 var app = builder.Build();
 

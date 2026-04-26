@@ -1,25 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb11_Imovel;
+namespace Corretora.C03.Infra.Repositorios.E11_imovel;
 
-public class RemoverImovelRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb11_imovelModel>
+public class RemoverImovelRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb11_imovelModel>
 {
-    public async Task<(tb11_imovelModel? dado, string mensagem, int codigo)> RemoverAsync(tb11_imovelModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela11Imovel.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Imóvel removido com sucesso", 200) :
-            (null, "Não foi possível remover o imóvel", 500);
+            var imovel = await context.Tabela11Imovel.FindAsync(id);
+            if (imovel is null)
+                return (false, "Imóvel não encontrado.", 404);
+
+            context.Tabela11Imovel.Remove(imovel);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Imóvel removido com sucesso!", 200) :
+                (false, "Erro ao remover imóvel.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
 

@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb10_Tipologia;
+namespace Corretora.C03.Infra.Repositorios.E10_tipologia;
 
 public class CadastrarTipologiaRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb10_tipologiaModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarTipologiaRepositorio(CorretoraDbContext context) : ICadast
         try
         {
             await context.Tabela10Tipologia.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Tipologia cadastrada com sucesso", 201) :
-            (null, "Não foi possível cadastrar a tipologia", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Tipologia cadastrada com sucesso!", 201) :
+                (null, "Erro ao cadastrar tipologia.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarTipologiaRepositorio(CorretoraDbContext context) : ICadast
         }
     }
 }
+
+
 

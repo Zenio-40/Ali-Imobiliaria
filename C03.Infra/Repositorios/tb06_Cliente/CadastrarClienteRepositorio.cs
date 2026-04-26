@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb06_Cliente;
+namespace Corretora.C03.Infra.Repositorios.E06_cliente;
 
 public class CadastrarClienteRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb06_clienteModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarClienteRepositorio(CorretoraDbContext context) : ICadastra
         try
         {
             await context.Tabela06Cliente.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Cliente cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o cliente", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Cliente cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar cliente.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarClienteRepositorio(CorretoraDbContext context) : ICadastra
         }
     }
 }
+
+
 

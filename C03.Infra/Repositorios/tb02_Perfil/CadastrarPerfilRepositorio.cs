@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb02_Perfil;
+namespace Corretora.C03.Infra.Repositorios.E02_perfil;
 
 public class CadastrarPerfilRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb02_perfilModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarPerfilRepositorio(CorretoraDbContext context) : ICadastrar
         try
         {
             await context.Tabela02Perfil.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Perfil cadastrado com sucesso", 201) :
-            (null, "Não foi possível cadastrar o perfil", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Perfil cadastrado com sucesso!", 201) :
+                (null, "Erro ao cadastrar perfil.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarPerfilRepositorio(CorretoraDbContext context) : ICadastrar
         }
     }
 }
+
+
 

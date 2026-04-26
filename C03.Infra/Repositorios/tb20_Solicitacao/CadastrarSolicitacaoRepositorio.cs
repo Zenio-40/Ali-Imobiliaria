@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb20_Solicitacao;
+namespace Corretora.C03.Infra.Repositorios.E20_solicitacao;
 
 public class CadastrarSolicitacaoRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb20_solicitacaoModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarSolicitacaoRepositorio(CorretoraDbContext context) : ICada
         try
         {
             await context.Tabela20Solicitacao.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Solicitação cadastrada com sucesso", 201) :
-            (null, "Não foi possível cadastrar a solicitação", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Solicitação cadastrada com sucesso!", 201) :
+                (null, "Erro ao cadastrar solicitação.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,3 +23,6 @@ public class CadastrarSolicitacaoRepositorio(CorretoraDbContext context) : ICada
         }
     }
 }
+
+
+

@@ -1,25 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb06_Cliente;
+namespace Corretora.C03.Infra.Repositorios.E06_cliente;
 
-public class RemoverClienteRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb06_clienteModel>
+public class RemoverClienteRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb06_clienteModel>
 {
-    public async Task<(tb06_clienteModel? dado, string mensagem, int codigo)> RemoverAsync(tb06_clienteModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela06Cliente.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Cliente removido com sucesso", 200) :
-            (null, "Não foi possível remover o cliente", 500);
+            var cliente = await context.Tabela06Cliente.FindAsync(id);
+            if (cliente is null)
+                return (false, "Cliente não encontrado.", 404);
+
+            context.Tabela06Cliente.Remove(cliente);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Cliente removido com sucesso!", 200) :
+                (false, "Erro ao remover cliente.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
 

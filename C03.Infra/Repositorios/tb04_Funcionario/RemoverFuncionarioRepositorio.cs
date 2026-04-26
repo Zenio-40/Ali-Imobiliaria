@@ -1,24 +1,34 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb04_Funcionario;
+namespace Corretora.C03.Infra.Repositorios.E04_funcionario;
 
-public class RemoverFuncionarioRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb04_funcionarioModel>
+public class RemoverFuncionarioRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb04_funcionarioModel>
 {
-    public async Task<(tb04_funcionarioModel? dado, string mensagem, int codigo)> RemoverAsync(tb04_funcionarioModel model)
-    {
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
+   {
         try
         {
-            context.Tabela04Funcinario.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Funcionario removido com sucesso", 200) :
-            (null, "Não foi possível remover o funcionário", 500);
+            var funcionario = await context.Tabela04Funcinario.FindAsync(id);
+            if(funcionario is null)
+                return (false, "Funcionário não encontrado.", 404);
+
+            context.Tabela04Funcinario.Remove(funcionario);
+            return await context.SaveChangesAsync() > 0 ?
+            (true, "Funcionário removido com sucesso!", 200) :
+            (false, "Erro ao remover funcionário.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
-        }
+            return (false, ex.ToString(), 500);
     }
 }
+}
+
+
+
+
+

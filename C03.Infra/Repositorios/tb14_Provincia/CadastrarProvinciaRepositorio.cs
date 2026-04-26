@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb14_Provincia;
+namespace Corretora.C03.Infra.Repositorios.E14_provincia;
 
 public class CadastrarProvinciaRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb14_provinciaModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarProvinciaRepositorio(CorretoraDbContext context) : ICadast
         try
         {
             await context.Tabela14Pronvincia.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Província cadastrada com sucesso", 201) :
-            (null, "Não foi possível cadastrar a província", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Província cadastrada com sucesso!", 201) :
+                (null, "Erro ao cadastrar província.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarProvinciaRepositorio(CorretoraDbContext context) : ICadast
         }
     }
 }
+
+
 

@@ -1,10 +1,10 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb12_Foto;
+namespace Corretora.C03.Infra.Repositorios.E12_foto;
 
 public class CadastrarFotoRepositorio(CorretoraDbContext context) : ICadastrarRepositorio<tb12_fotoModel>
 {
@@ -13,8 +13,9 @@ public class CadastrarFotoRepositorio(CorretoraDbContext context) : ICadastrarRe
         try
         {
             await context.Tabela12Foto.AddAsync(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Foto cadastrada com sucesso", 201) :
-            (null, "Não foi possível cadastrar a foto", 500);
+            return await context.SaveChangesAsync() > 0 ?
+                (model, "Foto cadastrada com sucesso!", 201) :
+                (null, "Erro ao cadastrar foto.", 500);
         }
         catch (DbUpdateException ex)
         {
@@ -22,4 +23,6 @@ public class CadastrarFotoRepositorio(CorretoraDbContext context) : ICadastrarRe
         }
     }
 }
+
+
 

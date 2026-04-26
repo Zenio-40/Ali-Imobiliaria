@@ -13,11 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="C01.Domain\Interface\" />
     <Folder Include="C02.Aplication\" />
-    <Folder Include="C03.Infra\" />
+    <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\Queries\" />
     <Folder Include="C03.Infra\Data\" />
-    <Folder Include="C03.Infra\Repositorios\" />
     <Folder Include="C03.Infra\Repositorios\tb01_Permissao\" />
     <Folder Include="C03.Infra\Repositorios\tb02_Perfil\" />
     <Folder Include="C03.Infra\Repositorios\tb03_PerfilPermissao\" />
@@ -26,20 +24,19 @@
     <Folder Include="C03.Infra\Repositorios\tb06_Cliente\" />
     <Folder Include="C03.Infra\Repositorios\tb07_Telefone\" />
     <Folder Include="C03.Infra\Repositorios\tb08_Email\" />
-    <Folder Include="C03.Infra\Repositorios\tb09_tipo_imovel\" />
     <Folder Include="C03.Infra\Repositorios\tb10_Tipologia\" />
     <Folder Include="C03.Infra\Repositorios\tb11_Imovel\" />
     <Folder Include="C03.Infra\Repositorios\tb12_Foto\" />
     <Folder Include="C03.Infra\Repositorios\tb13_Video\" />
     <Folder Include="C03.Infra\Repositorios\tb14_Provincia\" />
-    <Folder Include="C03.Infra\Repositorios\tb15_municipio\" />
     <Folder Include="C03.Infra\Repositorios\tb16_Bairro\" />
     <Folder Include="C03.Infra\Repositorios\tb17_Endereco\" />
     <Folder Include="C03.Infra\Repositorios\tb18_Proprietario\" />
     <Folder Include="C03.Infra\Repositorios\tb19_Estado_Solicitacao\" />
     <Folder Include="C03.Infra\Repositorios\tb20_Solicitacao\" />
     <Folder Include="C03.Infra\Repositorios\tb21_Favorito\" />
-    <Folder Include="C04.Controllers\" />
+    <Folder Include="C03.Infra\Servico\" />
+    <Folder Include="C03.Infra\Servico\PasswordService\" />
   </ItemGroup>
 
 </Project>

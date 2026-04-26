@@ -1,25 +1,35 @@
 using System;
 using Corretora.C01.Domain;
-using Corretora.C01.Domain.Interface;
+using Corretora.C01.Domain.Interfaces;
 using Corretora.C03.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Corretora.C03.Infra.Repositorios.tb14_Provincia;
+namespace Corretora.C03.Infra.Repositorios.E14_provincia;
 
-public class RemoverProvinciaRepositorio(CorretoraDbContext context) : IRemoverRepositorio<tb14_provinciaModel>
+public class RemoverProvinciaRepositorio(CorretoraDbContext context) : Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb14_provinciaModel>
 {
-    public async Task<(tb14_provinciaModel? dado, string mensagem, int codigo)> RemoverAsync(tb14_provinciaModel model)
+    public async Task<(bool sucesso, string mensagem, int codigo)> RemoverAsync(int id)
     {
         try
         {
-            context.Tabela14Pronvincia.Remove(model);
-            return await context.SaveChangesAsync() > 0 ? (model, "Província removida com sucesso", 200) :
-            (null, "Não foi possível remover a província", 500);
+            var provincia = await context.Tabela14Pronvincia.FindAsync(id);
+            if (provincia is null)
+                return (false, "Província não encontrada.", 404);
+
+            context.Tabela14Pronvincia.Remove(provincia);
+            return await context.SaveChangesAsync() > 0 ?
+                (true, "Província removida com sucesso!", 200) :
+                (false, "Erro ao remover província.", 500);
         }
         catch (DbUpdateException ex)
         {
-            return (null, ex.ToString(), 500);
+            return (false, ex.ToString(), 500);
         }
     }
 }
+
+
+
+
+
 
