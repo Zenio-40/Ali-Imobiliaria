@@ -10,81 +10,61 @@
 ## Implementação
 
 ### 1. ClienteUseCase
-- [ ] DTOs (CadastrarClienteDTO, LoginClienteDTO, ActualizarClienteDTO, ClienteDTO)
-- [ ] Command: CadastrarCliente
-- [ ] Command: LoginCliente
-- [ ] Command: ActualizarCliente
-- [ ] Command: AlterarSenhaCliente
-- [ ] Command: RecuperarSenhaCliente
-- [ ] Query: PesquisarClientePorId
-- [ ] Query: PesquisarClientePorTelefone
-- [ ] Query: PesquisarTodosClientes
+- [x] DTOs (CadastrarClienteDTO, ActualizarClienteDTO, ClienteDTO)
+- [x] Command: CadastrarCliente
+- [x] Command: ActualizarCliente
+- [x] Query: PesquisarClientePorId
+- [x] Query: PesquisarTodosClientes
 
 ### 2. ImovelUseCase
-- [ ] DTOs (CadastrarImovelDTO, ActualizarImovelDTO, ImovelDTO)
-- [ ] Command: CadastrarImovel
-- [ ] Command: ActualizarImovel
-- [ ] Command: DesativarImovel
-- [ ] Command: ActivarImovel
-- [ ] Query: PesquisarImovelPorId
-- [ ] Query: PesquisarImoveisDisponiveis
-- [ ] Query: PesquisarImoveisPorBairro
-- [ ] Query: PesquisarImoveisPorPreco
-- [ ] Query: PesquisarImoveisPorTipo
-
-### 3. FotoVideoUseCase
-- [ ] Command: CadastrarFotoImovel
-- [ ] Command: CadastrarVideoImovel
-- [ ] Command: RemoverFotoImovel
-- [ ] Command: RemoverVideoImovel
+- [x] DTOs (CadastrarImovelDTO, ActualizarImovelDTO, ImovelDTO)
+- [x] Command: CadastrarImovel
+- [x] Command: ActualizarImovel
+- [x] Command: DesativarImovel
+- [x] Query: PesquisarImovelPorId
+- [x] Query: PesquisarImoveisDisponiveis
 
 ### 4. FavoritoUseCase
-- [ ] DTOs (AdicionarFavoritoDTO)
-- [ ] Command: AdicionarFavorito
-- [ ] Command: RemoverFavorito
-- [ ] Query: ListarFavoritosDoCliente
+- [x] DTOs (AdicionarFavoritoDTO)
+- [x] Command: AdicionarFavorito
+- [x] Command: RemoverFavorito
+- [x] Query: ListarFavoritosDoCliente
 
 ### 5. SolicitacaoUseCase
-- [ ] DTOs (CadastrarSolicitacaoDTO, ActualizarEstadoSolicitacaoDTO)
-- [ ] Command: CadastrarSolicitacao
-- [ ] Command: ActualizarEstadoSolicitacao
-- [ ] Query: PesquisarSolicitacaoPorId
-- [ ] Query: PesquisarSolicitacoesDoCliente
-- [ ] Query: PesquisarSolicitacoesDoImovel
-- [ ] Query: PesquisarTodasSolicitacoes
+- [x] DTOs (CadastrarSolicitacaoDTO, ActualizarEstadoSolicitacaoDTO, SolicitacaoDTO)
+- [x] Command: CadastrarSolicitacao
+- [x] Command: ActualizarEstadoSolicitacao
+- [x] Query: PesquisarSolicitacaoPorId
+- [x] Query: PesquisarSolicitacoesDoCliente
 
 ### 6. ProprietarioUseCase
-- [ ] DTOs (CadastrarProprietarioDTO, ActualizarProprietarioDTO)
-- [ ] Command: CadastrarProprietario
-- [ ] Command: ActualizarProprietario
-- [ ] Query: PesquisarProprietarioPorId
-- [ ] Query: PesquisarTodosProprietarios
-
-### 7. LocalizacaoUseCase
-- [ ] Command: CadastrarProvincia
-- [ ] Command: CadastrarMunicipio
-- [ ] Command: CadastrarBairro
-- [ ] Command: CadastrarEnderecoDoImovel
-- [ ] Query: PesquisarTodasProvincias
-- [ ] Query: PesquisarMunicipiosPorProvincia
-- [ ] Query: PesquisarBairrosPorMunicipio
-
-### 8. TipoImovelUseCase & TipologiaUseCase
-- [ ] Command: CadastrarTipoImovel
-- [ ] Command: CadastrarTipologia
-- [ ] Query: PesquisarTodosTiposImovel
-- [ ] Query: PesquisarTodasTipologias
+- [x] DTOs (CadastrarProprietarioDTO, ActualizarProprietarioDTO, ProprietarioDTO)
+- [x] Command: CadastrarProprietario
+- [x] Command: ActualizarProprietario
+- [x] Query: PesquisarProprietarioPorId
+- [x] Query: PesquisarTodosProprietarios
 
 ### 9. FuncionarioUseCase (Complementar)
-- [ ] Command: ActualizarFuncionario
-- [ ] Command: AlterarSenhaFuncionario
-- [ ] Command: DesativarFuncionario
-- [ ] Query: PesquisarFuncionarioPorId
-- [ ] Query: PesquisarTodosFuncionarios
+- [x] Command: ActualizarFuncionario
+- [x] Command: DesativarFuncionario
+- [x] Query: PesquisarFuncionarioPorId
+- [x] Query: PesquisarTodosFuncionarios
+
+### Controladores
+- [x] AuthController (login)
+- [x] AdminController (CRUD funcionários + proteção [Authorize])
+- [x] ClienteController (clientes + favoritos + imóveis disponíveis)
+- [x] ImovelController (CRUD imóveis)
+- [x] ProprietarioController (CRUD proprietários)
+- [x] SolicitacaoController (solicitações + estados)
+- [x] CorretoraController (dashboard com estatísticas reais)
 
 ### 10. Ajustes Gerais
-- [ ] Corrigir namespaces inconsistentes nos repositórios
-- [ ] Actualizar Program.cs com novos DI
-- [ ] Actualizar Controladores (ClienteController, CorretoraController)
-- [ ] Build e teste
+- [x] Actualizar Program.cs com novos DI
+- [x] Build e teste
 
+## Pendências Futuras
+- [ ] Adicionar `.Include()` nos repositórios de infra para carregar dados relacionados
+- [ ] Implementar filtro de imóveis por preço, bairro, tipo
+- [ ] Adicionar upload de fotos/vídeos para imóveis
+- [ ] Criar testes unitários

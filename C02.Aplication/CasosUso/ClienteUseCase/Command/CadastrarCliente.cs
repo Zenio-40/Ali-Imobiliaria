@@ -29,7 +29,7 @@ public class CadastrarCliente(
             {
                 new tb08_emailModel
                 {
-                    email = dto.ClienteEmail
+                    Endereco = dto.ClienteEmail
                 }
             }
         };
@@ -40,4 +40,3 @@ public class CadastrarCliente(
             : (dto, mensagem, codigo);
     }
 }
-

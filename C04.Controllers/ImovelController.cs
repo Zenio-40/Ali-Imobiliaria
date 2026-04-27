@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Corretora.C02.Aplication.CasosUso.ImovelUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.ImovelUseCase.DTOs;
@@ -8,7 +7,6 @@ namespace Corretora.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class ImovelController : ControllerBase
 {
     private readonly CadastrarImovel _cadastrarImovel;
@@ -55,7 +53,6 @@ public class ImovelController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [AllowAnonymous]
     public async Task<IActionResult> ObterPorId(int id)
     {
         var (dados, mensagem, codigo) = await _pesquisarImovelPorId.Executar(id);
@@ -63,7 +60,6 @@ public class ImovelController : ControllerBase
     }
 
     [HttpGet("disponiveis")]
-    [AllowAnonymous]
     public async Task<IActionResult> ListarDisponiveis([FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
     {
         var (dados, mensagem, codigo) = await _pesquisarImoveisDisponiveis.Executar(pagina, quantidade);

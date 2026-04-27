@@ -183,6 +183,80 @@ public class CorretoraDbContext(DbContextOptions<CorretoraDbContext> options) : 
                 .WithMany(i => i.Favorito)
                 .HasForeignKey(e => e.tb11_imovelModel);
         });
+
+        // Seed data
+        modelBuilder.Entity<tb01_permissaoModel>().HasData(
+            new tb01_permissaoModel { id = 1, Descricao = "Cadastrar Funcionário" },
+            new tb01_permissaoModel { id = 2, Descricao = "Editar Funcionário" },
+            new tb01_permissaoModel { id = 3, Descricao = "Desativar Funcionário" },
+            new tb01_permissaoModel { id = 4, Descricao = "Listar Funcionários" },
+            new tb01_permissaoModel { id = 5, Descricao = "Cadastrar Cliente" },
+            new tb01_permissaoModel { id = 6, Descricao = "Editar Cliente" },
+            new tb01_permissaoModel { id = 7, Descricao = "Listar Clientes" },
+            new tb01_permissaoModel { id = 8, Descricao = "Cadastrar Imóvel" },
+            new tb01_permissaoModel { id = 9, Descricao = "Editar Imóvel" },
+            new tb01_permissaoModel { id = 10, Descricao = "Desativar Imóvel" },
+            new tb01_permissaoModel { id = 11, Descricao = "Listar Imóveis" }
+        );
+
+        modelBuilder.Entity<tb02_perfilModel>().HasData(
+            new tb02_perfilModel { id = 1, Descricao = "Admin" },
+            new tb02_perfilModel { id = 2, Descricao = "Corretor" },
+            new tb02_perfilModel { id = 3, Descricao = "Cliente" }
+        );
+
+        modelBuilder.Entity<tb03_perfiL_permissaoModel>().HasData(
+            // Admin tem todas as permissões
+            new tb03_perfiL_permissaoModel { id = 1, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 1, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 2, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 2, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 3, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 3, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 4, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 4, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 5, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 5, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 6, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 6, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 7, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 7, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 8, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 8, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 9, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 9, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 10, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 10, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 11, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 11, Estado = true },
+            // Corretor tem permissões de cliente e imóvel
+            new tb03_perfiL_permissaoModel { id = 12, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 5, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 13, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 6, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 14, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 7, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 15, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 8, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 16, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 9, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 17, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 10, Estado = true },
+            new tb03_perfiL_permissaoModel { id = 18, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 11, Estado = true }
+        );
+
+        modelBuilder.Entity<tb14_provinciaModel>().HasData(
+            new tb14_provinciaModel { Id = 1, Nome = "Luanda" }
+        );
+
+        modelBuilder.Entity<tb15_municipioModel>().HasData(
+            new tb15_municipioModel { Id = 1, Nome = "Luanda", tb14_provinciaModel = 1 }
+        );
+
+        modelBuilder.Entity<tb16_bairroModel>().HasData(
+            new tb16_bairroModel { Id = 1, Nome = "Centro", tb15_municipioModel = 1 }
+        );
+
+        modelBuilder.Entity<tb09_tipo_imovelModel>().HasData(
+            new tb09_tipo_imovelModel { Id = 1, Descricao = "Apartamento" },
+            new tb09_tipo_imovelModel { Id = 2, Descricao = "Casa" },
+            new tb09_tipo_imovelModel { Id = 3, Descricao = "Terreno" }
+        );
+
+        modelBuilder.Entity<tb10_tipologiaModel>().HasData(
+            new tb10_tipologiaModel { Id = 1, Descricao = "T1" },
+            new tb10_tipologiaModel { Id = 2, Descricao = "T2" },
+            new tb10_tipologiaModel { Id = 3, Descricao = "T3" }
+        );
+
+        modelBuilder.Entity<tb19_estado_solicitacaoModel>().HasData(
+            new tb19_estado_solicitacaoModel { Id = 1, Nome = "Pendente", Descricao = "Solicitação pendente" },
+            new tb19_estado_solicitacaoModel { Id = 2, Nome = "Aprovada", Descricao = "Solicitação aprovada" },
+            new tb19_estado_solicitacaoModel { Id = 3, Nome = "Rejeitada", Descricao = "Solicitação rejeitada" }
+        );
     }
 
 }

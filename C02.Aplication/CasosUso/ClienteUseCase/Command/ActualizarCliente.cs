@@ -23,9 +23,9 @@ public class ActualizarCliente(
             cliente.Telefone = new List<tb07_telefoneModel> { new() { Numero = dto.ClienteTelefone } };
 
         if (cliente.Email.Any())
-            cliente.Email.First().email = dto.ClienteEmail;
+            cliente.Email.First().Endereco = dto.ClienteEmail;
         else
-            cliente.Email = new List<tb08_emailModel> { new() { email = dto.ClienteEmail } };
+            cliente.Email = new List<tb08_emailModel> { new() { Endereco = dto.ClienteEmail } };
 
         var (dado, mensagem, codigo) = await actualizar.ActualizarAsync(cliente);
         return (dto, mensagem, codigo);

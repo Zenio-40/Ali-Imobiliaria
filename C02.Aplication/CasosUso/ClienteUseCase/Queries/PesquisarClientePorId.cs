@@ -16,7 +16,7 @@ public class PesquisarClientePorId(Corretora.C01.Domain.Interfaces.IPesquisarPor
             ClienteId = cliente.Id,
             ClienteNome = cliente.Nome,
             ClienteTelefone = cliente.Telefone.FirstOrDefault()?.Numero ?? string.Empty,
-            ClienteEmail = cliente.Email.FirstOrDefault()?.email ?? string.Empty,
+            ClienteEmail = cliente.Email.FirstOrDefault()?.Endereco ?? string.Empty,
             ClienteEstado = cliente.Estado,
             ClienteIdPerfil = cliente.Idtb02_perfilModel,
             ClientePerfil = cliente.Perfis.FirstOrDefault()?.Descricao ?? string.Empty
@@ -25,4 +25,3 @@ public class PesquisarClientePorId(Corretora.C01.Domain.Interfaces.IPesquisarPor
         return (dto, "Cliente encontrado com sucesso", 200);
     }
 }
-

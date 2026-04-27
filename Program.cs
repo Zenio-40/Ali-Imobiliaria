@@ -16,6 +16,7 @@ using Corretora.C02.Aplication.CasosUso.SolicitacaoUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.SolicitacaoUseCase.Queries;
 using Corretora.C02.Aplication.CasosUso.ProprietarioUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.ProprietarioUseCase.Queries;
+using Corretora.C02.Aplication.CasosUso.PerfilUseCase.Command;
 using Corretora.C03.Infra.Repositorios.E04_funcionario;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,9 +64,11 @@ builder.Services.AddScoped<ActualizarProprietario>();
 builder.Services.AddScoped<PesquisarProprietarioPorId>();
 builder.Services.AddScoped<PesquisarTodosProprietarios>();
 
+builder.Services.AddScoped<CadastrarPerfil>();
+
 builder.Services.AddContratos();
 
-// JWT Configuration
+// JWT Configuration (mantido para login mas middleware desativado para testes)
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "default_secret_key");
 builder.Services.AddAuthentication(options =>
 {
@@ -97,8 +100,9 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
+// Middleware de autenticação desativado temporariamente para testes no Postman
+// app.UseAuthentication();
+// app.UseAuthorization();
 
 app.MapControllers();
 

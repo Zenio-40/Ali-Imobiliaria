@@ -16,7 +16,7 @@ public class ActualizarEmailRepositorio(CorretoraDbContext context) : IActualiza
             if (email is null)
                 return (null, "Email não encontrado.", 404);
 
-            email.email = model.email;
+            email.Endereco = model.Endereco;
             email.tb06_clienteModel = model.tb06_clienteModel;
             email.tb04_funcionarioModel = model.tb04_funcionarioModel;
 

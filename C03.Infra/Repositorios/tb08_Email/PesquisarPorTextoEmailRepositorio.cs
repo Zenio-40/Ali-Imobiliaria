@@ -16,7 +16,7 @@ public class PesquisarPorTextoEmailRepositorio(CorretoraDbContext context) : Cor
         try
         {
             var dados = await context.Tabela08Email
-                .Where(e => e.email.Contains(texto))
+                .Where(e => e.Endereco.Contains(texto))
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();

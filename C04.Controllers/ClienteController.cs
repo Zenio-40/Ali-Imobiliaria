@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Corretora.C02.Aplication.CasosUso.ClienteUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.ClienteUseCase.DTOs;
@@ -12,7 +11,6 @@ namespace Corretora.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]
 public class ClienteController : ControllerBase
 {
     private readonly CadastrarCliente _cadastrarCliente;
@@ -45,7 +43,6 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPost]
-    [AllowAnonymous]
     public async Task<IActionResult> Cadastrar([FromBody] CadastrarClienteDTO dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
@@ -76,18 +73,16 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet("imoveis")]
-    [AllowAnonymous]
     public async Task<IActionResult> GetImoveisDisponiveis([FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
     {
         var (dados, mensagem, codigo) = await _pesquisarImoveisDisponiveis.Executar(pagina, quantidade);
         return StatusCode(codigo, new { dados, mensagem, codigo });
     }
 
-    [HttpGet("favoritos")]
-    public async Task<IActionResult> GetFavoritos([FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
+    [HttpGet("favoritos/{clienteId}")]
+    public async Task<IActionResult> GetFavoritos(int clienteId, [FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
     {
-        var idCliente = int.Parse(User.FindFirst("sub")?.Value ?? "0");
-        var (dados, mensagem, codigo) = await _listarFavoritos.Executar(idCliente, pagina, quantidade);
+        var (dados, mensagem, codigo) = await _listarFavoritos.Executar(clienteId, pagina, quantidade);
         return StatusCode(codigo, new { dados, mensagem, codigo });
     }
 

@@ -17,7 +17,7 @@ public class PesquisarTodosClientes(IPesquisarTodosRepositorio<tb06_clienteModel
             ClienteId = c.Id,
             ClienteNome = c.Nome,
             ClienteTelefone = c.Telefone.FirstOrDefault()?.Numero ?? string.Empty,
-            ClienteEmail = c.Email.FirstOrDefault()?.email ?? string.Empty,
+            ClienteEmail = c.Email.FirstOrDefault()?.Endereco ?? string.Empty,
             ClienteEstado = c.Estado,
             ClienteIdPerfil = c.Idtb02_perfilModel,
             ClientePerfil = c.Perfis.FirstOrDefault()?.Descricao ?? string.Empty

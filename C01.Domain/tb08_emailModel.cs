@@ -15,9 +15,8 @@ public class tb08_emailModel
     public int tb04_funcionarioModel {get; set;}
 
     [Column("Email")]
-    public string email {get; set;} = string.Empty;
+    public string Endereco {get; set;} = string.Empty;
 
     public tb04_funcionarioModel Funcionario {get; set;} = null!;
     public tb06_clienteModel Cliente {get; set;} = null!;
-
 }
