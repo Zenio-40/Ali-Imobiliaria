@@ -10,7 +10,9 @@ public class PesquisarPorTelefoneRepositorio(CorretoraDbContext context) : IPesq
 {
     public async Task<tb04_funcionarioModel?> PesquisarAsync(string numero)
     {
-        return await context.Tabela04Funcinario.FirstOrDefaultAsync(x => x.Telefone.Any(t => t.Numero == numero));
+        return await context.Tabela04Funcinario
+            .Include(f => f.Telefone)
+            .FirstOrDefaultAsync(x => x.Telefone.Any(t => t.Numero == numero));
     }
 }
 

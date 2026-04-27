@@ -38,6 +38,7 @@ builder.Services.AddScoped<ActualizarFuncionario>();
 builder.Services.AddScoped<DesativarFuncionario>();
 builder.Services.AddScoped<PesquisarFuncionarioPorId>();
 builder.Services.AddScoped<PesquisarTodosFuncionarios>();
+builder.Services.AddScoped<LoginCommand>();
 
 builder.Services.AddScoped<CadastrarCliente>();
 builder.Services.AddScoped<ActualizarCliente>();

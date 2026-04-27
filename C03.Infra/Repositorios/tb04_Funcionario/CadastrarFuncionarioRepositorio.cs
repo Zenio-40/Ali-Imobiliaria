@@ -12,10 +12,13 @@ public class CadastrarFuncionarioRepositorio(CorretoraDbContext context) : ICada
     {
         try
         {
+
+            
             await context.Tabela04Funcinario.AddAsync(model);
             return await context.SaveChangesAsync() > 0 ?
             (model, "Funcionário cadastrado com sucesso!", 201) : 
             (null, "Erro ao cadastrar funcionário.", 500);
+            
         }
         catch (DbUpdateException ex)
         {

@@ -20,7 +20,7 @@ public class PesquisarTodosClientes(IPesquisarTodosRepositorio<tb06_clienteModel
             ClienteEmail = c.Email.FirstOrDefault()?.Endereco ?? string.Empty,
             ClienteEstado = c.Estado,
             ClienteIdPerfil = c.Idtb02_perfilModel,
-            ClientePerfil = c.Perfis.FirstOrDefault()?.Descricao ?? string.Empty
+            ClientePerfil = c.Perfil?.Descricao ?? string.Empty
         });
 
         return (dtoList, "Clientes encontrados com sucesso", 200);

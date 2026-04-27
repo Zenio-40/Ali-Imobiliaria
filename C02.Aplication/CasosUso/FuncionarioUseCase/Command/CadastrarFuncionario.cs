@@ -1,51 +1,87 @@
 using System;
 using System.Collections.Generic;
-using C02.Aplication.Servico;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Corretora.C01.Domain;
 using Corretora.C01.Domain.Interfaces;
 using Corretora.C02.Aplication.CasosUso.FuncionarioUseCase.DTOs;
 
 namespace Corretora.C02.Aplication.CasosUso.FuncionarioUseCase.Command;
 
-public class CadastrarFuncionario (IPesquisarTelefoneRepositorio<tb04_funcionarioModel> pesquisar, ICadastrarRepositorio<tb04_funcionarioModel> cadastrar, IPasswordCreate gerarSenha, IPasswordHash criptoSenha, ISmsService sms)
+public class CadastrarFuncionario(ICadastrarRepositorio<tb04_funcionarioModel> _repositorio)
+{
+    public async Task<(object? dados, string mensagem, int codigo)> Executar(CadastrarFuncionarioDTO dto)
     {
-    public async Task<(CadastrarFuncionarioDTO? dados, string mensagem, int codigo)> Executar(CadastrarFuncionarioDTO dto)
-    {
-        var usuario = await pesquisar.PesquisarAsync(dto.FuncionarioTelefone);
-        if (usuario is not null) return (null, "Funcionario que quer cadastrar já existe", 409);
-
-        string senha = await gerarSenha.GenerateAsync();
-        var (senhaHash, saltHash) = await criptoSenha.HashAsync(senha);
+        var senhaGerada = GerarSenhaAleatoria();
+        var emailGerado = GerarEmail(dto.FuncionarioNome);
+        var salt = GerarSalt();
+        var senhaHash = GerarHash(senhaGerada, salt);
 
         var model = new tb04_funcionarioModel
         {
-            Nome = dto.FuncionarioNome,
             Idtb02_perfilModel = dto.FuncionarioIdPerfil,
-            Telefone = new List<tb07_telefoneModel>
+            Numero = dto.FuncionarioNumero,
+            Nome = dto.FuncionarioNome,
+            Estado = true,
+            Email = new List<tb08_emailModel>
             {
-                new tb07_telefoneModel
-                {
-                    Numero = dto.FuncionarioTelefone
-                }
+                new() { Endereco = emailGerado }
             },
             Credencial = new List<tb05_credencial_acessoModel>
             {
-                new tb05_credencial_acessoModel
+                new()
                 {
                     Senha_hash = senhaHash,
-                    Senha_salt = saltHash
+                    Senha_salt = salt
                 }
             }
         };
 
-        var (dado, mensagem, codigo) = await cadastrar.CadastrarAsync(model);
-        if (dado is null)
-            return (null, mensagem, codigo);
-        
-        string texto = $"Bem-vindo(a) à equipe, {model.Nome}! Sua conta foi criada com sucesso. acesse o sistema a partir do link : www.aliimobiliaria.com/login, utilizando o numero de telefone : {dto.FuncionarioTelefone} e a senha {senha}";
+        var (dado, mensagem, codigo) = await _repositorio.CadastrarAsync(model);
 
-        var smsResponse = await sms.SendSmsAsync(dto.FuncionarioTelefone, texto, "101034904950");
+        if (codigo == 201)
+        {
+            return (new {
+                dado!.Id,
+                dado.Nome,
+                Email = emailGerado,
+                SenhaTemporaria = senhaGerada
+            }, mensagem, codigo);
+        }
 
-        return (dto, mensagem, codigo); 
+        return (null, mensagem, codigo);
+    }
+
+    private static string GerarSenhaAleatoria()
+    {
+        var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789@#!";
+        var random = new Random();
+        return new string(Enumerable.Range(0, 10)
+            .Select(_ => chars[random.Next(chars.Length)]).ToArray());
+    }
+
+    private static string GerarSalt()
+    {
+        var bytes = new byte[16];
+        RandomNumberGenerator.Fill(bytes);
+        return Convert.ToBase64String(bytes);
+    }
+
+    private static string GerarHash(string senha, string salt)
+    {
+        var bytes = Encoding.UTF8.GetBytes(senha + salt);
+        var hash = SHA256.HashData(bytes);
+        return Convert.ToBase64String(hash);
+    }
+
+    private static string GerarEmail(string nome)
+    {
+        var nomeFormatado = nome.ToLower()
+            .Replace(" ", ".")
+            .Replace("ã", "a").Replace("ç", "c")
+            .Replace("é", "e").Replace("ê", "e")
+            .Replace("á", "a").Replace("ó", "o");
+        return $"{nomeFormatado}@aliimobiliaria.co.ao";
     }
 }

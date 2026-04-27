@@ -53,24 +53,60 @@ public class CorretoraDbContext(DbContextOptions<CorretoraDbContext> options) : 
     {
         base.OnModelCreating(modelBuilder);
 
+        // ========== CONFIGURAÇÕES DE PERMISSÃO E PERFIL ==========
+        
+        /// <summary>
+        /// Configuração da relação Muitos-para-Muitos entre tb02_PerfilModel e tb01_PermissaoModel
+        /// através da tabela de junção tb03_PerfilPermissaoModel
+        /// </summary>
         modelBuilder.Entity<tb03_perfiL_permissaoModel>(entity =>
         {
+            // Chave primária composta (opcional, mas recomendado para tabelas de junção)
+            entity.HasKey(e => e.id);
+
+            // Relação: Muitos PerfilPermissoes para Um Permissao
             entity.HasOne(e => e.Permissao)
                 .WithMany(p => p.PerfilPermissao)
-                .HasForeignKey(e => e.Idtb01_permissaoModel);
+                .HasForeignKey(e => e.Idtb01_permissaoModel)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_PerfilPermissao_Permissao");
 
+            // Relação: Muitos PerfilPermissoes para Um Perfil
             entity.HasOne(e => e.Perfil)
                 .WithMany(p => p.PerfilPermissao)
-                .HasForeignKey(e => e.Idtb02_perfilModel);
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_PerfilPermissao_Perfil");
         });
 
-        
+        // ========== CONFIGURAÇÕES DE FUNCIONÁRIO ==========
 
+        /// <summary>
+        /// Configuração da relação Um-para-Muitos entre tb02_PerfilModel e tb04_FuncionarioModel
+        /// Um Perfil possui muitos Funcionários
+        /// </summary>
         modelBuilder.Entity<tb04_funcionarioModel>(entity =>
         {
             entity.HasOne(e => e.Perfil)
-                .WithMany()
-                .HasForeignKey(e => e.Idtb02_perfilModel);
+                .WithMany(p => p.Funcionarios)
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Funcionario_Perfil");
+        });
+
+        // ========== CONFIGURAÇÕES DE CLIENTE ==========
+
+        /// <summary>
+        /// Configuração da relação Um-para-Muitos entre tb02_PerfilModel e tb06_ClienteModel
+        /// Um Perfil possui muitos Clientes
+        /// </summary>
+        modelBuilder.Entity<tb06_clienteModel>(entity =>
+        {
+            entity.HasOne(e => e.Perfil)
+                .WithMany(p => p.Clientes)
+                .HasForeignKey(e => e.Idtb02_perfilModel)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("FK_Cliente_Perfil");
         });
 
         modelBuilder.Entity<tb05_credencial_acessoModel>(entity =>
@@ -186,48 +222,263 @@ public class CorretoraDbContext(DbContextOptions<CorretoraDbContext> options) : 
                 .HasForeignKey(e => e.tb11_imovelModel);
         });
 
-        // Seed data
+        // ========== SEED DATA ==========
+
+        // Permissões do Sistema
         modelBuilder.Entity<tb01_permissaoModel>().HasData(
-            new tb01_permissaoModel { id = 1, Descricao = "Cadastrar Funcionário" },
-            new tb01_permissaoModel { id = 2, Descricao = "Editar Funcionário" },
-            new tb01_permissaoModel { id = 3, Descricao = "Desativar Funcionário" },
-            new tb01_permissaoModel { id = 4, Descricao = "Listar Funcionários" },
-            new tb01_permissaoModel { id = 5, Descricao = "Cadastrar Cliente" },
-            new tb01_permissaoModel { id = 6, Descricao = "Editar Cliente" },
-            new tb01_permissaoModel { id = 7, Descricao = "Listar Clientes" },
-            new tb01_permissaoModel { id = 8, Descricao = "Cadastrar Imóvel" },
-            new tb01_permissaoModel { id = 9, Descricao = "Editar Imóvel" },
-            new tb01_permissaoModel { id = 10, Descricao = "Desativar Imóvel" },
-            new tb01_permissaoModel { id = 11, Descricao = "Listar Imóveis" }
+            new tb01_permissaoModel 
+            { 
+                id = 1, 
+                Descricao = "Cadastrar Funcionário",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 2, 
+                Descricao = "Editar Funcionário",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 3, 
+                Descricao = "Desativar Funcionário",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 4, 
+                Descricao = "Listar Funcionários",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 5, 
+                Descricao = "Cadastrar Cliente",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 6, 
+                Descricao = "Editar Cliente",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 7, 
+                Descricao = "Listar Clientes",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 8, 
+                Descricao = "Cadastrar Imóvel",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 9, 
+                Descricao = "Editar Imóvel",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 10, 
+                Descricao = "Desativar Imóvel",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb01_permissaoModel 
+            { 
+                id = 11, 
+                Descricao = "Listar Imóveis",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            }
         );
 
+        // Perfis do Sistema
         modelBuilder.Entity<tb02_perfilModel>().HasData(
-            new tb02_perfilModel { id = 1, Descricao = "Admin" },
-            new tb02_perfilModel { id = 2, Descricao = "Corretor" },
-            new tb02_perfilModel { id = 3, Descricao = "Cliente" }
+            new tb02_perfilModel 
+            { 
+                id = 1, 
+                Descricao = "Admin",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb02_perfilModel 
+            { 
+                id = 2, 
+                Descricao = "Corretor",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb02_perfilModel 
+            { 
+                id = 3, 
+                Descricao = "Cliente",
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            }
         );
 
+        // Associações Perfil-Permissão
         modelBuilder.Entity<tb03_perfiL_permissaoModel>().HasData(
-            // Admin tem todas as permissões
-            new tb03_perfiL_permissaoModel { id = 1, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 1, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 2, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 2, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 3, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 3, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 4, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 4, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 5, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 5, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 6, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 6, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 7, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 7, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 8, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 8, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 9, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 9, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 10, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 10, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 11, Idtb02_perfilModel = 1, Idtb01_permissaoModel = 11, Estado = true },
-            // Corretor tem permissões de cliente e imóvel
-            new tb03_perfiL_permissaoModel { id = 12, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 5, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 13, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 6, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 14, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 7, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 15, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 8, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 16, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 9, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 17, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 10, Estado = true },
-            new tb03_perfiL_permissaoModel { id = 18, Idtb02_perfilModel = 2, Idtb01_permissaoModel = 11, Estado = true }
+            // ========== ADMIN: Todas as 11 permissões ==========
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 1, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 1, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 2, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 2, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 3, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 3, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 4, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 4, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 5, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 5, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 6, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 6, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 7, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 7, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 8, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 8, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 9, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 9, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 10, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 10, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 11, 
+                Idtb02_perfilModel = 1, 
+                Idtb01_permissaoModel = 11, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            
+            // ========== CORRETOR: Permissões 5-11 (Cliente e Imóvel) ==========
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 12, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 5, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 13, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 6, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 14, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 7, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 15, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 8, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 16, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 9, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 17, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 10, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            },
+            new tb03_perfiL_permissaoModel 
+            { 
+                id = 18, 
+                Idtb02_perfilModel = 2, 
+                Idtb01_permissaoModel = 11, 
+                Estado = true,
+                DataCriacao = new DateTime(2026, 4, 27, 0, 0, 0, DateTimeKind.Utc)
+            }
         );
 
         modelBuilder.Entity<tb14_provinciaModel>().HasData(
