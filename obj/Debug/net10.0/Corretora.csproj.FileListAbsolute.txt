@@ -82,3 +82,8 @@ C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.csp
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.dll
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\refint\Corretora.dll
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.pdb
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\Corretora.deps.json
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\Corretora.runtimeconfig.json
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\Corretora.pdb
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.genruntimeconfig.cache
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\ref\Corretora.dll
