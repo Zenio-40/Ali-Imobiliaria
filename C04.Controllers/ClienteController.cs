@@ -6,11 +6,14 @@ using Corretora.C02.Aplication.CasosUso.FavoritoUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.FavoritoUseCase.DTOs;
 using Corretora.C02.Aplication.CasosUso.FavoritoUseCase.Queries;
 using Corretora.C02.Aplication.CasosUso.ImovelUseCase.Queries;
+using Corretora.C02.Aplication.CasosUso.SolicitacaoUseCase.Command;
+using Corretora.C02.Aplication.CasosUso.SolicitacaoUseCase.DTOs;
+using Corretora.C02.Aplication.CasosUso.SolicitacaoUseCase.Queries;
 
 namespace Corretora.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/cliente")]
 public class ClienteController : ControllerBase
 {
     private readonly CadastrarCliente _cadastrarCliente;
@@ -21,6 +24,8 @@ public class ClienteController : ControllerBase
     private readonly RemoverFavorito _removerFavorito;
     private readonly ListarFavoritosDoCliente _listarFavoritos;
     private readonly PesquisarImoveisDisponiveis _pesquisarImoveisDisponiveis;
+    private readonly CadastrarSolicitacao _cadastrarSolicitacao;
+    private readonly PesquisarSolicitacoesDoCliente _pesquisarSolicitacoesDoCliente;
 
     public ClienteController(
         CadastrarCliente cadastrarCliente,
@@ -30,7 +35,9 @@ public class ClienteController : ControllerBase
         AdicionarFavorito adicionarFavorito,
         RemoverFavorito removerFavorito,
         ListarFavoritosDoCliente listarFavoritos,
-        PesquisarImoveisDisponiveis pesquisarImoveisDisponiveis)
+        PesquisarImoveisDisponiveis pesquisarImoveisDisponiveis,
+        CadastrarSolicitacao cadastrarSolicitacao,
+        PesquisarSolicitacoesDoCliente pesquisarSolicitacoesDoCliente)
     {
         _cadastrarCliente = cadastrarCliente;
         _actualizarCliente = actualizarCliente;
@@ -40,6 +47,8 @@ public class ClienteController : ControllerBase
         _removerFavorito = removerFavorito;
         _listarFavoritos = listarFavoritos;
         _pesquisarImoveisDisponiveis = pesquisarImoveisDisponiveis;
+        _cadastrarSolicitacao = cadastrarSolicitacao;
+        _pesquisarSolicitacoesDoCliente = pesquisarSolicitacoesDoCliente;
     }
 
     [HttpPost]
@@ -51,7 +60,7 @@ public class ClienteController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Actualizar([FromBody] ActualizarClienteDTO dto)
+    public async Task<IActionResult> Atualizar([FromBody] ActualizarClienteDTO dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
         var (dados, mensagem, codigo) = await _actualizarCliente.Executar(dto);
@@ -73,14 +82,29 @@ public class ClienteController : ControllerBase
     }
 
     [HttpGet("imoveis")]
-    public async Task<IActionResult> GetImoveisDisponiveis([FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
+    public async Task<IActionResult> ListarImoveisDisponiveis([FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
     {
         var (dados, mensagem, codigo) = await _pesquisarImoveisDisponiveis.Executar(pagina, quantidade);
         return StatusCode(codigo, new { dados, mensagem, codigo });
     }
 
+    [HttpPost("solicitacoes")]
+    public async Task<IActionResult> CadastrarSolicitacao([FromBody] CadastrarSolicitacaoDTO dto)
+    {
+        if (!ModelState.IsValid) return BadRequest(ModelState);
+        var (dados, mensagem, codigo) = await _cadastrarSolicitacao.Executar(dto);
+        return StatusCode(codigo, new { dados, mensagem, codigo });
+    }
+
+    [HttpGet("solicitacoes/cliente/{clienteId}")]
+    public async Task<IActionResult> ListarSolicitacoes([FromRoute] int clienteId, [FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
+    {
+        var (dados, mensagem, codigo) = await _pesquisarSolicitacoesDoCliente.Executar(clienteId, pagina, quantidade);
+        return StatusCode(codigo, new { dados, mensagem, codigo });
+    }
+
     [HttpGet("favoritos/{clienteId}")]
-    public async Task<IActionResult> GetFavoritos(int clienteId, [FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
+    public async Task<IActionResult> GetFavoritos([FromRoute] int clienteId, [FromQuery] int pagina = 1, [FromQuery] int quantidade = 20)
     {
         var (dados, mensagem, codigo) = await _listarFavoritos.Executar(clienteId, pagina, quantidade);
         return StatusCode(codigo, new { dados, mensagem, codigo });

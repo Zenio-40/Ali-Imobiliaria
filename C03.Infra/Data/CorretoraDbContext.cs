@@ -64,6 +64,8 @@ public class CorretoraDbContext(DbContextOptions<CorretoraDbContext> options) : 
                 .HasForeignKey(e => e.Idtb02_perfilModel);
         });
 
+        
+
         modelBuilder.Entity<tb04_funcionarioModel>(entity =>
         {
             entity.HasOne(e => e.Perfil)

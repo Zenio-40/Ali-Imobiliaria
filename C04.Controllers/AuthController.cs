@@ -6,7 +6,7 @@ using Corretora.C02.Aplication.CasosUso.FuncionarioUseCase.DTOs;
 namespace Corretora.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/auth")]
 public class AuthController : ControllerBase
 {
     private readonly LoginCommand _loginFuncionario;
@@ -17,7 +17,7 @@ public class AuthController : ControllerBase
     }
 
     /// <summary>
-    /// Autentica um funcionário (admin/corretor) usando telefone e senha.
+    /// Autentica um funcionário (admin ou corretor) usando telefone e senha.
     /// </summary>
     [HttpPost("login/funcionario")]
     [AllowAnonymous]
