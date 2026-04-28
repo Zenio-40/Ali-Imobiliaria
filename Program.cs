@@ -18,6 +18,7 @@ using Corretora.C02.Aplication.CasosUso.ProprietarioUseCase.Command;
 using Corretora.C02.Aplication.CasosUso.ProprietarioUseCase.Queries;
 using Corretora.C02.Aplication.CasosUso.PerfilUseCase.Command;
 using Corretora.C03.Infra.Repositorios.E04_funcionario;
+using C02.Aplication.Servico;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+// Configurar HttpClient para SMS
+builder.Services.AddHttpClient<ISmsService, SmsService>(client =>
+{
+    client.BaseAddress = new Uri("https://sms.gsaplatform.co");
+    client.Timeout = TimeSpan.FromSeconds(30);
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+    client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+});
 
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;
 builder.Services.AddDbContext<CorretoraDbContext>(options => options.UseNpgsql(conexao));

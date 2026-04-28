@@ -17,8 +17,5 @@ public class CadastrarFuncionarioDTO
     [Required(ErrorMessage = "Selecione o perfil do funcionario.")]
     public int FuncionarioIdPerfil { get; set; }
 
-    [Required(ErrorMessage = "Informe o número do funcionario.")]
-    public string FuncionarioNumero { get; set; } = string.Empty;
-
 }
     

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Corretora")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+77c39e985603c1e5ff75b4fe0beb0176d95197e6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6781c346de16b1dbe814eefef3761ac9e2f38d1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Corretora")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Corretora")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
