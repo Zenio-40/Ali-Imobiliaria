@@ -7,3 +7,4 @@ namespace C02.Aplication.Servico
         Task<bool> SendSmsAsync(string telefone, string mensagemTexto, string nif);
     }
 }
+

@@ -5,3 +5,4 @@ namespace C02.Aplication.Servico
         string GenerateToken(string userId, string role);
     }
 }
+

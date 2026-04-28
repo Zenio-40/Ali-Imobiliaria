@@ -16,6 +16,8 @@ public class PesquisarTodosFuncionarioRepositorio(CorretoraDbContext context) : 
         try
         {
             var dados = await context.Tabela04Funcinario
+                .Include(f => f.Telefone)
+                .Include(f => f.Perfil)
                 .Skip((pagina - 1) * quantidade)
                 .Take(quantidade)
                 .ToListAsync();

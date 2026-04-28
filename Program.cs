@@ -31,10 +31,9 @@ builder.Services.AddOpenApi();
 // Configurar HttpClient para SMS
 builder.Services.AddHttpClient<ISmsService, SmsService>(client =>
 {
-    client.BaseAddress = new Uri("https://sms.gsaplatform.co");
+    client.BaseAddress = new Uri("https://sms.gsaplatform.co/enviar/sms");
     client.Timeout = TimeSpan.FromSeconds(30);
     client.DefaultRequestHeaders.Add("Accept", "application/json");
-    client.DefaultRequestHeaders.Add("Content-Type", "application/json");
 });
 
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;

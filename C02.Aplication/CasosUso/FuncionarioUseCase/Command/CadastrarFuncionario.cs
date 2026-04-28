@@ -12,14 +12,13 @@ using Microsoft.Extensions.Configuration;
 namespace Corretora.C02.Aplication.CasosUso.FuncionarioUseCase.Command;
 
 public class CadastrarFuncionario(
-    ICadastrarRepositorio<tb04_funcionarioModel> _repositorio, 
+    ICadastrarRepositorio<tb04_funcionarioModel> _repositorio, IPasswordCreate _passwordCreate, IPasswordHash _passwordHash,
     ISmsService _smsService,
     IConfiguration _configuration)
 {
     public async Task<(object? dados, string mensagem, int codigo)> Executar(CadastrarFuncionarioDTO dto)
     {
         var senhaGerada = GerarSenhaAleatoria();
-        var emailGerado = GerarEmail(dto.FuncionarioNome);
         var salt = GerarSalt();
         var senhaHash = GerarHash(senhaGerada, salt);
 
@@ -48,13 +47,8 @@ public class CadastrarFuncionario(
             var nif = _configuration["Sms:Nif"] ?? "1000000000";
             var sucessoSms = await _smsService.SendSmsAsync(dto.FuncionarioTelefone, mensagemSmsCorpo, nif);
 
-            return (new {
-                dado!.Id,
-                dado.Nome,
-                Email = emailGerado,
-                SenhaTemporaria = senhaGerada,
-                SmsSendStatus = sucessoSms ? "Enviado com sucesso" : "Falha ao enviar SMS"
-            }, mensagem, codigo);
+            return (null, "Funcionário cadastrado com sucesso!", codigo);
+    
         }
 
         return (null, mensagem, codigo);
@@ -62,7 +56,7 @@ public class CadastrarFuncionario(
 
     private static string GerarSenhaAleatoria()
     {
-        var chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789@#!";
+        var chars = "123456789";
         var random = new Random();
         return new string(Enumerable.Range(0, 10)
             .Select(_ => chars[random.Next(chars.Length)]).ToArray());
@@ -82,13 +76,5 @@ public class CadastrarFuncionario(
         return Convert.ToBase64String(hash);
     }
 
-    private static string GerarEmail(string nome)
-    {
-        var nomeFormatado = nome.ToLower()
-            .Replace(" ", ".")
-            .Replace("ã", "a").Replace("ç", "c")
-            .Replace("é", "e").Replace("ê", "e")
-            .Replace("á", "a").Replace("ó", "o");
-        return $"{nomeFormatado}@aliimobiliaria.co.ao";
-    }
+   
 }

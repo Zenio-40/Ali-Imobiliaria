@@ -19,6 +19,8 @@
   <ItemGroup>
     <Folder Include="C02.Aplication\" />
     <Folder Include="C02.Aplication\CasosUso\FuncionarioUseCase\Queries\" />
+    <Folder Include="C02.Aplication\Servico\" />
+    <Folder Include="C02.Aplication\Servico\IPasswordService\" />
     <Folder Include="C03.Infra\Data\" />
     <Folder Include="C03.Infra\Repositorios\tb01_Permissao\" />
     <Folder Include="C03.Infra\Repositorios\tb02_Perfil\" />
@@ -40,7 +42,8 @@
     <Folder Include="C03.Infra\Repositorios\tb20_Solicitacao\" />
     <Folder Include="C03.Infra\Repositorios\tb21_Favorito\" />
     <Folder Include="C03.Infra\Servico\" />
-    <Folder Include="C03.Infra\Servico\PasswordService\" />
+    <Folder Include="C03.Infra\Servico\IPasswordService\" />
+    <Folder Include="C03.Infra\Servico\ISmsService\" />
   </ItemGroup>
 
 </Project>
