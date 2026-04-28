@@ -29,18 +29,10 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
 // Configurar HttpClient para SMS
-builder.Services.AddHttpClient<ISmsService, SmsService>(client =>
-{
-    client.BaseAddress = new Uri("https://sms.gsaplatform.co/enviar/sms");
-    client.Timeout = TimeSpan.FromSeconds(30);
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-});
-
+builder.Services.AddScoped<ISmsService, SmsService>();
 string conexao = builder.Configuration.GetConnectionString("ConexaoLocal")!;
 builder.Services.AddDbContext<CorretoraDbContext>(options => options.UseNpgsql(conexao));
 
-
-builder.Services.AddDbContext<CorretoraDbContext>();
 
 builder.Services.AddScoped<CadastrarFuncionario>();
 builder.Services.AddScoped<ActualizarFuncionario>();

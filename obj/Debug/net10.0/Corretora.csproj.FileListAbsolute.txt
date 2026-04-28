@@ -172,3 +172,7 @@ C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\refint\Corret
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.pdb
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\Corretora.genruntimeconfig.cache
 C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\obj\Debug\net10.0\ref\Corretora.dll
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\AfricasTalkingCS.dll
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\PhoneNumbers.dll
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\System.Net.Http.Formatting.dll
+C:\Users\Zênio\Documents\GitHub\Ali-Imobiliaria\bin\Debug\net10.0\Newtonsoft.Json.Bson.dll
