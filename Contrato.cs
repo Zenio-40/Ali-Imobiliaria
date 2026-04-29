@@ -23,6 +23,7 @@ using Corretora.C03.Infra.Repositorios.E20_solicitacao;
 using Corretora.C03.Infra.Repositorios.E21_favorito;
 using C02.Aplication.Servico;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace Corretora;
 
@@ -200,11 +201,18 @@ public static class Contratos
         services.AddScoped<Corretora.C01.Domain.Interfaces.IRemoverRepositorio<tb21_favoritoModel>, RemoverFavoritoRepositorio>();
 
         // Serviços
-        services.AddHttpClient();
+        services.AddHttpClient<ISmsService, SmsService>((client) =>
+        {
+            var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
+            var baseUrl = config["Sms:ProviderUrl"] ?? "https://sms.gsaplatform.co";
+            client.BaseAddress = new Uri(baseUrl);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+        });
+
+
         services.AddScoped<IPasswordCreate, PasswordCreateService>();
         services.AddScoped<IPasswordHash, PasswordHashService>();
         services.AddScoped<IPasswordVerify, PasswordVerifyService>();
-        services.AddScoped<ISmsService, SmsService>();
         services.AddScoped<IJwtService, JwtService>();
 
         return services;

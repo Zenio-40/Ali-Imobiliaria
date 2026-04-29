@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration;
 namespace Corretora.C02.Aplication.CasosUso.FuncionarioUseCase.Command;
 
 public class CadastrarFuncionario(
-    ICadastrarRepositorio<tb04_funcionarioModel> _repositorio, IPasswordCreate _passwordCreate, IPasswordHash _passwordHash,
+    ICadastrarRepositorio<tb04_funcionarioModel> _repositorio,
     ISmsService _smsService,
     IConfiguration _configuration)
 {
